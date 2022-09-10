@@ -1,0 +1,64 @@
+<head>
+    <style>
+        html,
+        body {
+            margin: 0;
+            background-color: black;
+            height: 100%;
+            width: 100%;
+        }
+
+        #canvas {
+            top: 0;
+            width: 600px;
+            height: 600px;
+        }
+    </style>
+    <script type="importmap">
+			{
+				"imports": {
+					"three": "../node_modules/three/build/three.module.js",
+					"three-nodes/": "../node_modules/three/examples/jsm/nodes/"
+				}
+			}
+		</script>
+
+</head>
+
+<body>
+    <script src="http://static.runoob.com/assets/canvas2image/canvas2image.js"></script>
+    <canvas id="canvas"></canvas>
+    <script type="module" src="./src/engine.js"></script>
+    <button onclick="exportCanvasAsPNG()">下载</button>
+    <script>
+        function exportCanvasAsPNG () {
+
+            var canvas = document.getElementById('canvas');
+
+            var MIME_TYPE = 'image/png';
+            var imgURL = canvas.toDataURL(MIME_TYPE);
+
+            var dlLink = document.createElement('a');
+            dlLink.download = 'test';
+            dlLink.href = imgURL;
+            dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
+
+            document.body.appendChild(dlLink);
+            dlLink.click();
+            document.body.removeChild(dlLink);
+
+        }
+    </script>
+    <!-- var MIME_TYPE = "image/bmp";
+
+    var imgURL = canvasElement.toDataURL(MIME_TYPE, 1.);
+
+    var dlLink = document.createElement('a');
+    dlLink.download = 'test';
+    dlLink.href = imgURL;
+    dlLink.dataset.downloadurl = [MIME_TYPE, dlLink.download, dlLink.href].join(':');
+
+    document.body.appendChild(dlLink);
+    dlLink.click();
+    document.body.removeChild(dlLink); -->
+</body>
